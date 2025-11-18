@@ -1,6 +1,6 @@
 {
   "name": "dimension-helper",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "A visual tool for calculating and previewing image dimensions in customizable increments with aspect ratio display",
   "main": "index.html",
   "scripts": {

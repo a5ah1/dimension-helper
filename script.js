@@ -122,22 +122,25 @@ function drawGrid(width, height, widthUnits, heightUnits) {
     }
 }
 
+// Helper function for input changes
+function handleInputChange() {
+    updatePreview();
+    saveToStorage();
+}
+
 // Event listeners for inputs
-incrementInput.addEventListener('input', () => {
-    updatePreview();
-    saveToStorage();
-});
-widthUnitsInput.addEventListener('input', () => {
-    updatePreview();
-    saveToStorage();
-});
-heightUnitsInput.addEventListener('input', () => {
-    updatePreview();
-    saveToStorage();
-});
+incrementInput.addEventListener('input', handleInputChange);
+widthUnitsInput.addEventListener('input', handleInputChange);
+heightUnitsInput.addEventListener('input', handleInputChange);
 
 // Keyboard shortcuts
 document.addEventListener('keydown', (e) => {
+    // Close modal on Escape key
+    if (e.key === 'Escape' && helpModal.classList.contains('show')) {
+        helpModal.classList.remove('show');
+        return;
+    }
+
     // Don't trigger shortcuts if user is editing an input field
     if (document.activeElement.tagName === 'INPUT') return;
 
@@ -188,13 +191,6 @@ closeModalButton.addEventListener('click', () => {
 // Close modal on outside click
 helpModal.addEventListener('click', (e) => {
     if (e.target === helpModal) {
-        helpModal.classList.remove('show');
-    }
-});
-
-// Close modal on Escape key
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && helpModal.classList.contains('show')) {
         helpModal.classList.remove('show');
     }
 });

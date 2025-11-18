@@ -4,6 +4,8 @@ A visual tool for calculating and previewing image dimensions in customizable in
 
 🔗 **[Live Demo](https://a5ah1.github.io/dimension-helper/)**
 
+> **Note:** This tool is designed for use on desktop or laptop computers.
+
 ## Features
 
 - **Interactive Preview**: Real-time visual representation of dimensions with proportional scaling
@@ -85,6 +87,10 @@ Works in all modern browsers that support:
 - SVG
 - ES6 JavaScript
 
+## Acknowledgments
+
+Icons provided by [Lucide](https://lucide.dev/) - Beautiful & consistent icon toolkit made by the community.
+
 ## License
 
 MIT License - Feel free to use and modify as needed.
@@ -95,4 +101,4 @@ Issues and pull requests are welcome! Feel free to suggest features or report bu
 
 ---
 
-**Version**: 0.9.0
+**Version**: 0.9.1
