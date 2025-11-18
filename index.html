@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="description" content="Calculate and preview image dimensions with customizable increments. Interactive tool with keyboard shortcuts and real-time aspect ratio calculations.">
+    <meta name="robots" content="index,follow">
+    <meta name="theme-color" content="#181820">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Dimension Helper">
+    <meta property="og:description" content="A visual tool for calculating and previewing image dimensions in customizable increments. Features interactive controls, keyboard shortcuts, real-time aspect ratio display, and grid overlays.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourusername.github.io/dimension-helper/">
+
+    <title>Dimension Helper</title>
+    <link rel="stylesheet" href="styles.css?v=0.9.0">
+</head>
+<body>
+    <div id="preview-area">
+        <div id="preview-container">
+            <div id="preview-rectangle">
+                <svg id="grid-overlay"></svg>
+                <div id="dimension-label"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toolbar">
+        <button id="reset-btn" class="icon-btn" title="Reset to defaults">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-power-icon lucide-power"><path d="M12 2v10"/><path d="M18.4 6.6a9 9 0 1 1-12.77.04"/></svg>
+        </button>
+
+        <div class="divider"></div>
+
+        <div class="toolbar-group">
+            <label for="increment">Increment:</label>
+            <input type="number" id="increment" value="64" min="1" step="1">
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="toolbar-group">
+            <label for="width-units">Width Units:</label>
+            <input type="number" id="width-units" value="16" min="1" step="1">
+        </div>
+
+        <div class="toolbar-group">
+            <label for="height-units">Height Units:</label>
+            <input type="number" id="height-units" value="16" min="1" step="1">
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="output-group">
+            <span class="output-label">Dimensions:</span>
+            <span class="output-value" id="dimensions-output">1024 × 1024</span>
+        </div>
+
+        <div class="output-group">
+            <span class="output-label">Ratio:</span>
+            <span class="output-value" id="ratio-output">1:1 (1.00)</span>
+        </div>
+
+        <button id="help-btn" class="icon-btn help-btn" title="Help">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle-question-mark-icon lucide-message-circle-question-mark"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+        </button>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="help-modal" class="modal">
+        <div class="modal-content">
+            <button id="close-modal" class="close-btn">&times;</button>
+
+            <h2>About Dimension Helper</h2>
+            <p>A visual tool for calculating and previewing image dimensions in customizable increments. Perfect for working with image sizes that need to be multiples of specific values (like 64 for certain AI models or video codecs).</p>
+
+            <h3>Keyboard Shortcuts</h3>
+            <div class="shortcuts">
+                <div class="shortcut-item">
+                    <kbd><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left-icon lucide-arrow-left"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg></kbd>
+                    <span>Decrease width by 1 unit</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></kbd>
+                    <span>Increase width by 1 unit</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-icon lucide-arrow-up"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg></kbd>
+                    <span>Increase height by 1 unit</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down-icon lucide-arrow-down"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></kbd>
+                    <span>Decrease height by 1 unit</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>Esc</kbd>
+                    <span>Close this modal</span>
+                </div>
+            </div>
+
+            <p class="note">Note: Keyboard shortcuts work when input fields are not focused. Your settings are automatically saved and will persist across page refreshes.</p>
+        </div>
+    </div>
+
+    <script src="script.js?v=0.9.0"></script>
+</body>
+</html>
